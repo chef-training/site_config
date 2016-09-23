@@ -8,20 +8,13 @@ execute 'apt-get update -y'
 
 package 'apache2'
 
-template '/var/www/html/index.html' do
-  source 'index.html.erb'
-  owner 'www-data'
-  group 'www-data'
-  sensitive true
-end
-
 tarball = "#{Chef::Config[:file_cache_path]}/webfiles.tar.gz"
 
 remote_file tarball do
   owner 'root'
   group 'root'
   mode '0644'
-  source 'https://s3.amazonaws.com/binamov-delivery/webfiles.tar.gz'
+  source 'https://github.com/chef-training/site_config/raw/master/webfiles.tar.gz'
 end
 
 execute 'extract web files' do
@@ -29,6 +22,13 @@ execute 'extract web files' do
   not_if do
     ::File.exist?('/var/www/favicon.ico')
   end
+  notifies :run, 'execute[change permissions]', :immediately
+end
+
+execute 'change permissions' do
+  command 'chown -R www-data .'
+  cwd '/var/www/html'
+  action :nothing
 end
 
 service 'apache2' do
