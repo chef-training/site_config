@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: site_config
+# Cookbook:: site_config
 # Spec:: default
 #
-# Copyright (c) 2016 The Authors, All Rights Reserved.
+# Copyright:: (c) 2016 The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
