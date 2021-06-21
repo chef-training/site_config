@@ -1,5 +1,3 @@
-# # encoding: utf-8
-
 # Inspec test for recipe site_config::default
 
 # The Inspec reference, with examples and extensive documentation, can be
